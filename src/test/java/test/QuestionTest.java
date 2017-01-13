@@ -17,4 +17,21 @@ public class QuestionTest {
         Question question = new Question("question?");
         assertEquals("question?", question.getQuestion());
     }
+
+    @Test
+    public void question_storesToDB() {
+        Question question = new Question("Is this a question?");
+        assertNotNull(question.getId());
+        assertTrue(question.getId() > 0);
+    }
+
+    @Test
+    public void question_loadsAllQuestions() {
+        Question question1 = new Question("Question 1");
+        Question question2 = new Question("Question 2");
+        Question.getQuestions().clear();
+        Question.loadQuestions();
+        assertTrue(Question.getQuestions().contains(question1));
+        assertTrue(Question.getQuestions().contains(question2));
+    }
 }
