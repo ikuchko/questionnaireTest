@@ -8,6 +8,7 @@ import org.omg.PortableInterceptor.INACTIVE;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Illiak on 1/13/2017.
@@ -87,5 +88,9 @@ public class Question {
             e.printStackTrace();
             LOG.error(e);
         }
+    }
+
+    public static Question getQuestionById(Integer id) {
+        return Question.getQuestions().stream().filter(question -> Objects.equals(question.getId(), id)).findFirst().orElse(null);
     }
 }

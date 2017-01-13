@@ -34,4 +34,11 @@ public class QuestionTest {
         assertTrue(Question.getQuestions().contains(question1));
         assertTrue(Question.getQuestions().contains(question2));
     }
+
+    @Test
+    public void returnQuestionById() {
+        Question question = new Question("new question");
+        Question searchQuestion = Question.getQuestionById(question.getId());
+        assertEquals(searchQuestion, question);
+    }
 }
