@@ -46,4 +46,10 @@ public class AnswerTest {
         assertTrue(answers.contains(answer2));
     }
 
+    @Test
+    public void answer_addesQuestionNode() {
+        Answer answer = new Answer(question, "answer");
+        answer.addQuestionNode(new Question("testQuestion"));
+        assertEquals("testQuestion", question.getAnswers().get(0).getQuestion().getQuestion());
+    }
 }

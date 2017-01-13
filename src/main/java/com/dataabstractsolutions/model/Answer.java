@@ -14,6 +14,7 @@ import java.util.List;
 public class Answer {
     private final String QUERY_INSERT = "INSERT INTO answer (answer_name) VALUES (?)";
     private final String QUERY_INSERT_QUESTION_LINK = "INSERT INTO question_answer (question_id, answer_id) VALUES (?,?)";
+    private final String QUERY_UPDATE = "UPDATE answer SET question_id = ? WHERE answer_id = ?";
     private static final String QUERY_SELECT_ANSWERS = "SELECT a.answer_id, a.answer_name, a.question_id FROM question_answer AS qa " +
             "JOIN answer AS a ON qa.answer_id = a.answer_id " +
             "WHERE qa.question_id = %d";
@@ -112,6 +113,18 @@ public class Answer {
         params.add(getId());
         try {
             DB.executeUpdate(QUERY_INSERT_QUESTION_LINK, params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOG.error(e);
+        }
+    }
+
+    public void addQuestionNode(Question question) {
+        List<Object> params = new ArrayList<>();
+        params.add(question.getId());
+        params.add(getId());
+        try {
+            DB.executeUpdate(QUERY_UPDATE, params);
         } catch (SQLException e) {
             e.printStackTrace();
             LOG.error(e);
