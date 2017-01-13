@@ -93,4 +93,8 @@ public class Question {
     public static Question getQuestionById(Integer id) {
         return Question.getQuestions().stream().filter(question -> Objects.equals(question.getId(), id)).findFirst().orElse(null);
     }
+
+    public List<Answer> getAnswers() {
+        return Answer.getAnswers(getId());
+    }
 }

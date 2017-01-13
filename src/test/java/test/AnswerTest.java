@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -15,17 +17,33 @@ public class AnswerTest {
     @Rule
     public DatabaseRule databaseRule = new DatabaseRule();
 
+    private Question question;
+
     @Before
     public void initiate() {
-        new Question("ques1?");
+        question = new Question("ques1?");
     }
 
     @Test
     public void answer_createsCorrectly() {
-        Question question = Question.getQuestions().stream().filter(question1 -> question1.getQuestion().equals("ques1?")).findFirst().orElse(null);
         Answer answer = new Answer(question, "answer1");
         assertEquals("answer1", answer.getAnswer());
+    }
 
+    @Test
+    public void answer_storesToDB() {
+        Answer answer = new Answer(question, "answer1");
+        assertNotNull(question.getId());
+        assertTrue(question.getId() > 0);
+    }
+
+    @Test
+    public void answer_loadsAllQuestions() {
+        Answer answer1 = new Answer(question, "answer1");
+        Answer answer2 = new Answer(question, "answer2");
+        List<Answer> answers = question.getAnswers();
+        assertTrue(answers.contains(answer1));
+        assertTrue(answers.contains(answer2));
     }
 
 }
