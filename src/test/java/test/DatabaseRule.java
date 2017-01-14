@@ -2,6 +2,7 @@ package test;
 
 import application.DB;
 import com.dataabstractsolutions.App;
+import com.dataabstractsolutions.model.Question;
 import org.junit.rules.ExternalResource;
 
 import java.io.FileInputStream;
@@ -30,8 +31,11 @@ public class DatabaseRule extends ExternalResource{
             var5.printStackTrace();
             System.out.println("USER_NAME: " + properties.getProperty("MYSQL_DB_USERNAME"));
         }
-
         new DB(url, login, passwd);
+
+        //insert first survey's question
+        Question question = new Question("survey?");
+        DB.executeUpdate(String.format("INSERT INTO survey (survey_name, question_id) VALUES ('some survey', %d)", question.getId()));
     }
 
     @Override
@@ -40,6 +44,7 @@ public class DatabaseRule extends ExternalResource{
             DB.executeUpdate("DELETE FROM question");
             DB.executeUpdate("DELETE FROM answer");
             DB.executeUpdate("DELETE FROM question_answer");
+            DB.executeUpdate("DELETE FROM survey");
         } catch (SQLException e) {
             e.printStackTrace();
         }

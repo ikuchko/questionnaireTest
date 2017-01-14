@@ -16,6 +16,7 @@ import java.util.Objects;
 public class Question {
     private final String QUERY_INSERT = "INSERT INTO question (question_name) VALUES (?)";
     private static final String QUERY_SELECT = "SELECT * FROM question";
+    private static final String QUERY_SELECT_FIRST = "SELECT question_id FROM survey LIMIT 1";
 
     private static final Logger LOG = Logger.getLogger(Question.class);
 
@@ -96,5 +97,18 @@ public class Question {
 
     public List<Answer> getAnswers() {
         return Answer.getAnswers(getId());
+    }
+
+    public static Question getFirstSurveyQuestion() {
+        Question question = null;
+        try {
+            for (DBResultParser row : DBResultParser.getResultSet(DB.executeQuery(QUERY_SELECT_FIRST))) {
+                question = Question.getQuestionById(row.getInt("question_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOG.error(e);
+        }
+        return question;
     }
 }

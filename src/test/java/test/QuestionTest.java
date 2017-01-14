@@ -41,4 +41,11 @@ public class QuestionTest {
         Question searchQuestion = Question.getQuestionById(question.getId());
         assertEquals(searchQuestion, question);
     }
+
+    @Test
+    public void returnFirstQuestionOfSurvey() {
+        Question question = Question.getFirstSurveyQuestion();
+        assertNotNull(question);
+        assertEquals("survey?", question.getQuestion());
+    }
 }
