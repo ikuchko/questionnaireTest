@@ -34,6 +34,7 @@ public class DatabaseRule extends ExternalResource{
         new DB(url, login, passwd);
 
         //insert first survey's question
+        DB.executeUpdate("call create_test_DB()");
         Question question = new Question("survey?");
         DB.executeUpdate(String.format("INSERT INTO survey (survey_name, question_id) VALUES ('some survey', %d)", question.getId()));
     }
