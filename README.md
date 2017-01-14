@@ -6,7 +6,7 @@
 
 Clone this repository:
 ```
-$ git clone https://ikuchkoDAS@bitbucket.org/ikuchkoDAS/questionnairetest.git
+$ git clone https://github.com/ikuchko/questionnaireTest.git
 ```
 
 Restore mySQL database from dump file in the root of the project:
