@@ -15,6 +15,13 @@ $ cd questionnaireTest
 $ mysql -u <username> -p <passwd> questionnaire < questionnaire.sql;
 ```
 
+Setup connection to the mySQL database
+```
+$ open file questionnaireTest/src/main/resources/my.properties
+$ change variables MYSQL_DB_USERNAME and MYSQL_DB_PASSWORD according to your DB credentials;
+$ change URL connections to main and test DB if needed (MYSQL_DB_MAIN and MYSQL_DB_TEST)
+```
+
 Build and run application using GRADLE:
 ```
 $ gradle build
